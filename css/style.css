@@ -1,0 +1,774 @@
+/* =========================================================
+   Campeonato Escolar FC 26 — Mobile First
+   ========================================================= */
+:root {
+  --bg: #0B0F19;
+  --bg-soft: #101722;
+  --bg-card: rgba(17, 24, 39, 0.78);
+  --text: #F5F7FA;
+  --muted: #9AA7BA;
+  --neon: #00F0FF;
+  --neon-soft: rgba(0, 240, 255, 0.10);
+  --neon-line: rgba(0, 240, 255, 0.26);
+  --gold: #FFD700;
+  --silver: #C0C0C0;
+  --bronze: #CD7F32;
+  --radius: 20px;
+  --max-width: 1120px;
+  --shadow-neon: 0 0 26px rgba(0, 240, 255, 0.10);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  min-width: 320px;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(0,240,255,.075), transparent 28%),
+    radial-gradient(circle at 0% 24%, rgba(0,240,255,.035), transparent 24%),
+    var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(rgba(255,255,255,.012) 1px, transparent 1px);
+  background-size: 100% 4px;
+  opacity: .25;
+}
+
+a { color: inherit; text-decoration: none; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { font: inherit; }
+img { max-width: 100%; display: block; }
+
+.container {
+  width: min(calc(100% - 24px), var(--max-width));
+  margin-inline: auto;
+}
+.section,
+footer { padding: 72px 0; }
+.section-header {
+  max-width: 760px;
+  margin-bottom: 32px;
+}
+.section-lead { margin-top: 12px; }
+
+eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.eyebrow {
+  color: var(--neon);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.eyebrow::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: var(--neon);
+  box-shadow: 0 0 8px rgba(0,240,255,.65);
+}
+
+h1, h2, h3 { line-height: 1.08; }
+h1 {
+  font-size: clamp(2.15rem, 11vw, 5.8rem);
+  letter-spacing: -.055em;
+}
+h2 {
+  font-size: clamp(1.85rem, 8vw, 3rem);
+  letter-spacing: -.045em;
+}
+h3 { font-size: 1.05rem; }
+p { color: var(--muted); }
+.neon-text {
+  color: var(--neon);
+  text-shadow: 0 0 18px rgba(0,240,255,.25);
+}
+
+/* ============ Hero ============ */
+header {
+  min-height: 100svh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 34px;
+  padding: 44px 0 54px;
+}
+.hero-copy { position: relative; z-index: 1; }
+.hero-copy > p {
+  max-width: 620px;
+  margin-top: 16px;
+  font-size: clamp(.97rem, 4vw, 1.12rem);
+}
+.logo-placeholder-wrap {
+  width: 150px;
+  margin-bottom: 18px;
+}
+.hero-messages {
+  display: grid;
+  gap: 9px;
+  margin: 22px 0 28px;
+}
+.hero-message {
+  border-left: 2px solid var(--neon);
+  padding: 8px 0 8px 12px;
+  color: #DDE7F5;
+  font-size: .95rem;
+  font-weight: 600;
+}
+.hero-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 52px;
+  padding: 0 18px;
+  border: 1px solid var(--neon-line);
+  border-radius: 14px;
+  font-weight: 800;
+  font-size: .86rem;
+  letter-spacing: .015em;
+  text-align: center;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+}
+.btn-primary {
+  color: #001217;
+  background: var(--neon);
+  border-color: var(--neon);
+  box-shadow: 0 0 22px rgba(0,240,255,.16);
+}
+.btn-primary:active { transform: scale(.985); }
+.btn-ghost {
+  color: var(--text);
+  background: rgba(255,255,255,.025);
+}
+.btn:focus-visible,
+.social-link:focus-visible,
+.accordion-button:focus-visible {
+  outline: 2px solid var(--neon);
+  outline-offset: 3px;
+}
+
+.hero-visual {
+  min-height: 245px;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+.hero-orbit {
+  width: min(250px, 70vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid rgba(0,240,255,.17);
+  box-shadow: 0 0 60px rgba(0,240,255,.055), inset 0 0 44px rgba(0,240,255,.035);
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+.hero-orbit::before,
+.hero-orbit::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(0,240,255,.12);
+}
+.hero-orbit::before { inset: 12%; }
+.hero-orbit::after { inset: 25%; }
+.hero-badge {
+  width: 150px;
+  height: 150px;
+  border-radius: 28px;
+  background: linear-gradient(145deg, rgba(0,240,255,.08), rgba(255,255,255,.025));
+  border: 1px solid rgba(0,240,255,.32);
+  box-shadow: var(--shadow-neon), inset 0 0 30px rgba(0,240,255,.035);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  transform: rotate(-5deg);
+  position: relative;
+  z-index: 1;
+}
+.hero-badge--small {
+  width: 150px;
+  height: 150px;
+  transform: none;
+}
+.hero-badge strong {
+  display: block;
+  font-size: 2.5rem;
+  line-height: .95;
+  letter-spacing: -.06em;
+}
+.hero-badge span {
+  display: block;
+  color: #A8B7CC;
+  margin-top: 7px;
+  font-size: .63rem;
+  font-weight: 800;
+  letter-spacing: .11em;
+}
+
+/* ============ Generic cards ============ */
+.prize-section { padding-top: 34px; }
+.podium-wrap { margin-top: 10px; }
+.podium {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  align-items: end;
+}
+.podium-card,
+.info-card,
+.contact-card,
+.rental-card,
+.accordion {
+  border: 1px solid rgba(255,255,255,.07);
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 14px 40px rgba(0,0,0,.16);
+}
+.podium-card {
+  min-height: 142px;
+  border-radius: 18px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  overflow: hidden;
+}
+.podium-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 30%, rgba(0,0,0,.2));
+  pointer-events: none;
+}
+.podium-card.second { border-color: rgba(192,192,192,.28); }
+.podium-card.first {
+  min-height: 172px;
+  border-color: rgba(255,215,0,.35);
+}
+.podium-card.third { border-color: rgba(205,127,50,.32); }
+.podium-rank { font-size: .74rem; font-weight: 900; letter-spacing: .1em; }
+.second .podium-rank, .second .podium-value { color: var(--silver); }
+.first .podium-rank, .first .podium-value { color: var(--gold); }
+.third .podium-rank, .third .podium-value { color: var(--bronze); }
+.podium-value {
+  margin-top: 4px;
+  font-size: clamp(1.8rem, 9vw, 2.65rem);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -.05em;
+  position: relative;
+  z-index: 1;
+}
+.podium-label { margin-top: 8px; font-size: .82rem; color: #A5B1C3; position: relative; z-index: 1; }
+.podium-note {
+  margin-top: 18px;
+  text-align: center;
+  font-size: .88rem;
+  font-style: italic;
+}
+
+/* ============ Rules ============ */
+.rules-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+.accordion { border-radius: var(--radius); overflow: hidden; }
+.accordion-item + .accordion-item { border-top: 1px solid rgba(255,255,255,.07); }
+.accordion-button {
+  width: 100%;
+  min-height: 62px;
+  padding: 0 16px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  cursor: pointer;
+  text-align: left;
+  font-weight: 750;
+}
+.accordion-icon {
+  color: var(--neon);
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: transform .2s ease;
+}
+.accordion-item.is-open .accordion-icon { transform: rotate(45deg); }
+.accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .28s ease;
+}
+.accordion-content > div { min-height: 0; overflow: hidden; }
+.accordion-content-inner { padding: 0 16px 18px; }
+.accordion-item.is-open .accordion-content { grid-template-rows: 1fr; }
+.format-table-wrap {
+  margin-top: 16px;
+  overflow-x: auto;
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 14px;
+  -webkit-overflow-scrolling: touch;
+}
+.format-table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+  font-size: .79rem;
+}
+.format-table th,
+.format-table td {
+  padding: 12px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.format-table tr:last-child td { border-bottom: 0; }
+.format-table th { color: var(--neon); font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; }
+.content-list { padding-left: 18px; display: grid; gap: 9px; }
+.content-list li { color: #C6D1DF; }
+.timeline { display: grid; gap: 16px; }
+.timeline-row { display: grid; grid-template-columns: 16px 1fr; gap: 12px; }
+.timeline-dot {
+  width: 10px;
+  height: 10px;
+  margin-top: 8px;
+  border-radius: 50%;
+  background: var(--neon);
+  box-shadow: 0 0 12px rgba(0,240,255,.65);
+  position: relative;
+}
+.timeline-row:not(:last-child) .timeline-dot::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 4px;
+  width: 1px;
+  height: calc(100% + 22px);
+  background: rgba(0,240,255,.18);
+}
+.timeline-row strong { font-size: .9rem; }
+.timeline-row p { margin-top: 3px; font-size: .83rem; }
+.info-stack { display: grid; gap: 10px; }
+.info-card { border-radius: 18px; padding: 18px; }
+.info-card .eyebrow { margin-bottom: 7px; font-size: .66rem; }
+.info-card h3 { font-size: 1.15rem; }
+.info-card p { margin-top: 5px; font-size: .86rem; }
+
+/* ============ Rental ============ */
+.rental-section { padding-top: 30px; }
+.rental-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 22px;
+  border-color: rgba(0,240,255,.3);
+  box-shadow: var(--shadow-neon);
+}
+.rental-copy h3 { font-size: clamp(1.35rem, 6vw, 1.85rem); }
+.rental-copy > p { margin-top: 10px; }
+.rental-small { font-size: .79rem; margin-top: 12px !important; }
+.warning {
+  margin-top: 15px;
+  padding: 12px;
+  border: 1px solid rgba(255,180,80,.2);
+  border-radius: 13px;
+  background: rgba(255,180,80,.045);
+  color: #D8DDE5;
+  font-size: .76rem;
+}
+.rental-price {
+  min-height: 150px;
+  border-radius: 16px;
+  border: 1px solid rgba(0,240,255,.18);
+  background: rgba(0,240,255,.035);
+  display: grid;
+  place-items: center;
+}
+.rental-price-inner { text-align: center; padding: 12px; }
+.rental-price strong {
+  color: var(--neon);
+  font-size: clamp(1.55rem, 8vw, 2.25rem);
+  line-height: 1;
+  letter-spacing: -.05em;
+  text-shadow: 0 0 15px rgba(0,240,255,.2);
+}
+.rental-price p { margin-top: 6px; font-size: .78rem; }
+
+/* ============ Footer ============ */
+footer { padding-bottom: 26px; }
+.contact-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.contact-card { border-radius: 20px; padding: 20px; }
+.contact-card h3 { font-size: 1.3rem; margin-bottom: 6px; }
+.contact-card .btn { margin-top: 18px; }
+.socials { display: grid; gap: 9px; margin-top: 18px; }
+.social-link {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 14px;
+  color: #D8E3F0;
+  transition: .2s ease;
+}
+.social-meta { display: flex; align-items: center; gap: 10px; }
+.social-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: var(--neon);
+  color: #001217;
+  font-size: .7rem;
+  font-weight: 900;
+  flex: 0 0 auto;
+}
+.footer-bottom {
+  margin-top: 30px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,.06);
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: #718097;
+  font-size: .74rem;
+}
+
+/* ============ Tablet / larger phones ============ */
+@media (min-width: 560px) {
+  .container { width: min(calc(100% - 36px), var(--max-width)); }
+  .hero-actions { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .podium { grid-template-columns: repeat(3, 1fr); }
+  .podium-card.first { order: initial; min-height: 205px; }
+  .podium-card.second { min-height: 178px; }
+  .podium-card.third { min-height: 150px; }
+}
+
+/* ============ Desktop ============ */
+@media (min-width: 860px) {
+  .section, footer { padding: 100px 0; }
+  .section-header { margin-bottom: 42px; }
+  .hero-grid {
+    grid-template-columns: 1.02fr .98fr;
+    gap: 56px;
+    padding: 72px 0;
+  }
+  .logo-placeholder-wrap { margin-bottom: 22px; }
+  .hero-copy > p { margin-top: 20px; }
+  .hero-messages { margin: 28px 0 32px; }
+  .hero-actions { max-width: 500px; }
+  .hero-visual { min-height: 460px; }
+  .hero-orbit { width: min(390px, 82vw); }
+  .hero-badge { width: 190px; height: 190px; }
+  .rules-grid { grid-template-columns: minmax(0, 1.5fr) minmax(260px, .7fr); align-items: start; }
+  .rental-card { grid-template-columns: minmax(0,1fr) 320px; padding: 30px; }
+  .contact-grid { grid-template-columns: 1fr 1fr; gap: 22px; }
+  .contact-card { padding: 30px; }
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 28px rgba(0,240,255,.28); }
+  .btn-ghost:hover { border-color: rgba(0,240,255,.55); background: rgba(0,240,255,.05); transform: translateY(-2px); }
+  .social-link:hover { border-color: rgba(0,240,255,.4); background: rgba(0,240,255,.04); transform: translateY(-1px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+
+body {
+    background:
+        linear-gradient(
+            rgba(11, 15, 25, 0.78),
+            rgba(11, 15, 25, 0.90)
+        ),
+        url("../img/fundo.png") center center / cover fixed no-repeat;
+
+    color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+    body {
+        background-attachment: scroll;
+    }
+}
+
+/* ============ Formulário e Pix ============ */
+.inscricao-form {
+  display: grid;
+  gap: 16px;
+  margin-top: 18px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+.form-group label {
+  font-size: 0.85rem;
+  color: #C6D1DF;
+  font-weight: 600;
+}
+.form-group input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.form-group input:focus {
+  outline: none;
+  border-color: var(--neon);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.15);
+}
+.pix-container {
+  margin-top: 18px;
+  text-align: center;
+  animation: fadeIn 0.4s ease;
+}
+.pix-container h4 {
+  color: var(--neon);
+  margin-bottom: 4px;
+}
+.pix-qr {
+  width: 180px;
+  height: 180px;
+  margin: 16px auto;
+  border-radius: 12px;
+  border: 2px solid var(--neon);
+  padding: 8px;
+  background: #fff; /* O fundo branco é obrigatório para celulares lerem o QR Code */
+}
+.pix-copy {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+}
+.pix-key {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--muted);
+  word-break: break-all;
+  margin-bottom: 6px;
+  user-select: all; /* Facilita pro usuário copiar com 1 clique no PC */
+}
+.pix-hint {
+  font-size: 0.75rem;
+  color: #A5B1C3;
+}
+/* Estilo específico para o botão do WhatsApp */
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 52px;
+  padding: 0 18px;
+  border-radius: 14px;
+  font-weight: 800;
+  font-size: 0.86rem;
+  text-align: center;
+  transition: transform .2s ease;
+  background: #25D366; 
+  color: #fff;
+  box-shadow: 0 0 22px rgba(37, 211, 102, 0.16);
+}
+.btn-whatsapp:active { transform: scale(.985); }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Correção Mobile para a Caixinha de Copiar */
+.copy-box {
+  display: flex;
+  flex-direction: column; /* Coloca o botão EMBAIXO do input no celular */
+  gap: 10px;
+  margin: 15px 0;
+  width: 100%; /* Força a não vazar do card */
+}
+
+.copy-box input {
+  width: 100%;
+  min-width: 0; /* Regra de ouro pro flexbox não explodir */
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-family: monospace;
+  font-size: 0.8rem;
+  text-overflow: ellipsis; /* Coloca "..." no final em vez de esticar a tela */
+  overflow: hidden;
+  white-space: nowrap; 
+}
+
+.btn-copiar {
+  width: 100%;
+  padding: 14px;
+  background-color: var(--neon);
+  color: #001217;
+  border: none;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn-copiar:active {
+  transform: scale(0.98);
+}
+
+/* ============ Emojis do Pódio ============ */
+.podium-emoji {
+  font-size: 3rem; /* Deixa o emoji bem grande */
+  line-height: 1;
+  margin-bottom: 8px; /* Dá um espacinho pro texto abaixo */
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.4)); /* Dá uma sombra 3D pra medalha */
+}
+
+/* Deixa a medalha de ouro (1º lugar) ainda maior pra destacar */
+.first .podium-emoji {
+  font-size: 4rem;
+  margin-bottom: 12px;
+}
+
+/* ============ O Pódio Real (Lado a Lado) ============ */
+.podium {
+  display: grid !important;
+  /* Cria 3 colunas, sendo a do meio um tico maior */
+  grid-template-columns: 1fr 1.1fr 1fr !important; 
+  align-items: flex-end !important; /* Alinha todos por baixo, grudados no chão */
+  gap: 6px !important;
+}
+
+/* Ordem na tela: 3º na esquerda, 1º no centro, 2º na direita */
+.podium-card.third  { order: 3; }
+.podium-card.first  { order: 2; }
+.podium-card.second { order: 1; }
+
+/* Alturas progressivas formando a escada do pódio */
+.podium-card.third  { min-height: 150px !important; }
+.podium-card.second { min-height: 175px !important; }
+.podium-card.first  { min-height: 220px !important; }
+
+/* Ajustes para tudo caber na tela minúscula do celular sem quebrar */
+.podium-card {
+  padding: 15px 4px !important; /* Tira o espaçamento lateral interno */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Empurra o texto pra base */
+}
+
+/* Tamanho dos Emojis no celular */
+.podium-emoji { font-size: 1.8rem !important; margin-bottom: 5px; }
+.first .podium-emoji { font-size: 2.6rem !important; margin-bottom: 8px; }
+
+/* Tamanho dos Textos no celular */
+.podium-value { font-size: clamp(1rem, 4vw, 1.3rem) !important; margin-top: 2px; }
+.podium-rank { font-size: 0.65rem !important; }
+.podium-label { font-size: 0.6rem !important; }
+
+/* Se a pessoa abrir no PC/Tablet, o pódio fica gigante e majestoso */
+@media (min-width: 560px) {
+  .podium { gap: 16px !important; }
+  .podium-card { padding: 20px !important; }
+  .podium-emoji { font-size: 3rem !important; }
+  .first .podium-emoji { font-size: 4rem !important; }
+  .podium-value { font-size: 2rem !important; }
+  .podium-card.third  { min-height: 180px !important; }
+  .podium-card.second { min-height: 210px !important; }
+  .podium-card.first  { min-height: 260px !important; }
+}
+
+/* ============ Estilo da Logo ============ */
+.site-logo {
+  width: 100%;
+  max-width: 180px; /* Aumente ou diminua esse valor para ajustar o tamanho ideal da sua logo */
+  height: auto;
+  display: block;
+  margin: 0 auto; /* Garante que ela fique centralizada */
+  
+  /* Opcional: dá um pequeno brilho/sombra atrás da logo pra combinar com o tema neon */
+  filter: drop-shadow(0 4px 15px rgba(255, 255, 255, 0.15)); 
+}
+
+/* ============ Centralização Apenas dos Títulos e Logo ============ */
+
+/* Centraliza a caixinha da logo sem estragar os botões em volta */
+.logo-placeholder-wrap {
+  text-align: center !important;
+  margin: 15px 0 !important;
+  width: 100%;
+}
+
+/* Garante que a imagem fique no meio */
+.site-logo {
+  display: inline-block !important;
+  margin: 0 auto !important;
+}
+
+/* Centraliza EXATAMENTE só a tag "Campeonato" e o Título Principal */
+.hero-copy .eyebrow, 
+.hero-copy h1 {
+  text-align: center !important;
+  display: block !important;
+}
+
+@media (max-width: 380px) {
+  .container { width: min(calc(100% - 18px), var(--max-width)); }
+  .section, footer { padding: 62px 0; }
+  .hero-grid { padding-top: 30px; }
+  .hero-badge--small { width: 132px; height: 132px; }
+  .hero-visual { min-height: 220px; }
+  .hero-orbit { width: 218px; }
+  .hero-badge { width: 134px; height: 134px; }
+  .hero-badge strong { font-size: 2.15rem; }
+  .contact-card, .rental-card, .info-card { padding: 16px; }
+}
