@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+  // 1. Accordion
   document.querySelectorAll('.accordion-button').forEach((button) => {
     button.addEventListener('click', () => {
       const item = button.closest('.accordion-item');
@@ -10,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // 2. Scroll Suave
   document.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener('click', (event) => {
       const targetId = link.getAttribute('href');
@@ -25,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // 3. Formulário de Inscrição e Pix
   const formInscricao = document.getElementById('form-inscricao');
   const telaPix = document.getElementById('tela-pix');
   const btnWhatsapp = document.getElementById('btn-whatsapp');
@@ -32,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (formInscricao) {
     formInscricao.addEventListener('submit', (event) => {
-      event.preventDefault(); 
+      event.preventDefault(); // Isso aqui que impede a tela de subir!
 
       const nome = document.getElementById('nome').value.trim();
       const email = document.getElementById('email').value.trim();
@@ -40,8 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const textoOriginal = btnSubmit.innerText;
       btnSubmit.innerText = 'GERANDO PIX...';
 
-      // Envia os dados silenciosamente para o seu e-mail
-      // ATENÇÃO: COLOQUE SEU E-MAIL REAL AQUI EMBAIXO NO LUGAR DO "SEU-EMAIL@gmail.com"
+      // Envia os dados silenciosamente para o meu email
       fetch('https://formsubmit.co/ajax/polvocampeonatos@gmail.com', {
         method: 'POST',
         headers: { 
@@ -51,27 +53,32 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify({
             Nome: nome,
             Email: email,
-            Status: 'Aguardando o jogador enviar o comprovante no WhatsApp.'
+            Status: 'Aguardando o jogador enviar o comprovante no WhatsApp.',
+            _captcha: 'false'
         })
       })
       .then(response => response.json())
       .then(data => {
-        formInscricao.style.display = 'none';
-        telaPix.style.display = 'block';
-
-        const numeroZap = '5511960947066';
-        const mensagem = `Opa! Aqui é o ${nome} (E-mail: ${email}). Segue meu comprovante de pagamento (R$ 10,00) da inscrição do Campeonato FC26!`;
-        const urlZap = `https://wa.me/${numeroZap}?text=${encodeURIComponent(mensagem)}`;
-        
-        // Coloca o link gerado no botão verde
-        btnWhatsapp.setAttribute('href', urlZap);
+         mostrarPixZap(nome, email);
       })
       .catch(error => {
-        // Se a internet do usuário cair, avisa ele
-        alert('Houve um erro ao gerar o pagamento. Verifique sua internet e tente novamente.');
-        btnSubmit.innerText = textoOriginal;
+        // SE DER ERRO NO EMAIL (FormSubmit cair), LIBERA O PIX MESMO ASSIM!
+        console.log("Erro no email, mas liberando a inscrição.");
+        mostrarPixZap(nome, email);
       });
     });
+  }
+
+  // Função que esconde o form e mostra o Pix e Zap
+  function mostrarPixZap(nomePlayer, emailPlayer) {
+    formInscricao.style.display = 'none';
+    telaPix.style.display = 'block';
+
+    const numeroZap = '5561402414529';
+    const mensagem = `Fala! Aqui é o ${nomePlayer} (E-mail: ${emailPlayer}). Segue meu comprovante de pagamento (R$ 10,00) da inscrição do Campeonato FC26!`;
+    const urlZap = `https://wa.me/${numeroZap}?text=${encodeURIComponent(mensagem)}`;
+    
+    btnWhatsapp.setAttribute('href', urlZap);
   }
 
   // =======================================================
