@@ -43,7 +43,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const textoOriginal = btnSubmit.innerText;
       btnSubmit.innerText = 'GERANDO PIX...';
 
-      // Envia os dados silenciosamente para o meu email
+      // ==========================================
+      // SISTEMA DE REDUNDÂNCIA (FormSubmit -> Formspree)
+      // ==========================================
+      
+      // 1ª Tentativa: FormSubmit
       fetch('https://formsubmit.co/ajax/7273c4b6d882fc97417e635e8cabb685', {
         method: 'POST',
         headers: { 
@@ -53,18 +57,44 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify({
             Nome: nome,
             Email: email,
-            Status: 'Aguardando o jogador enviar o comprovante no WhatsApp.',
+            Status: 'Aguardando comprovante (Via FormSubmit)',
             _captcha: 'false'
         })
       })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) throw new Error('Falha no FormSubmit');
+        return response.json();
+      })
       .then(data => {
+         // Se deu certo, mostra o Pix
+         console.log("Email enviado via FormSubmit!");
          mostrarPixZap(nome, email);
       })
       .catch(error => {
-        // SE DER ERRO NO EMAIL (FormSubmit cair), LIBERA O PIX MESMO ASSIM!
-        console.log("Erro no email, mas liberando a inscrição.");
-        mostrarPixZap(nome, email);
+        console.log("FormSubmit falhou. Tentando plano B (Formspree)...");
+        
+        // 2ª Tentativa: Formspree (Seu link novo)
+        fetch('https://formspree.io/f/mjyklpey', {
+          method: 'POST',
+          headers: { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+              Nome: nome,
+              Email: email,
+              Status: 'Aguardando comprovante (Via plano B - Formspree)'
+          })
+        })
+        .then(response => {
+           console.log("Email enviado via Formspree!");
+           mostrarPixZap(nome, email);
+        })
+        .catch(err => {
+           // Se TUDO falhar, libera o Pix do mesmo jeito!
+           console.log("Ambos falharam, mas o jogador está liberado.");
+           mostrarPixZap(nome, email);
+        });
       });
     });
   }
