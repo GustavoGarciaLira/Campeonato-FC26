@@ -761,6 +761,59 @@ body {
   display: block !important;
 }
 
+/* ============ Cards de Informações e Premiação ============ */
+.cards-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 0 15px;
+}
+
+.info-card {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 25px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.highlight-card {
+  border-color: rgba(0, 255, 204, 0.3);
+  box-shadow: 0 0 15px rgba(0, 255, 204, 0.08);
+}
+
+.info-card h3 {
+  font-size: 1.35rem;
+  margin: 12px 0;
+  line-height: 1.4;
+  color: #ffffff;
+}
+
+.info-card .highlight-text {
+  color: #ffffff;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 1.05rem;
+}
+
+.info-card .sub-detail {
+  font-size: 0.9rem;
+  color: #a0a0a0;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.info-card strong {
+  color: #ffffff;
+}
+
 @media (max-width: 380px) {
   .container { width: min(calc(100% - 18px), var(--max-width)); }
   .section, footer { padding: 62px 0; }
